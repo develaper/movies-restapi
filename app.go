@@ -22,7 +22,13 @@ func AllMoviesEndPoint(w http.ResponseWriter, r *http.Request) {
 }
 
 func FindMovieEndPoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "not implemented yet !")
+	params := mux.Vars(r)
+	movie, err := dao.FindById(params["id"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid Movie ID")
+		return
+	}
+	respondWithJson(w, http.StatusOK, movie)
 }
 
 func CreateMovieEndPoint(w http.ResponseWriter, r *http.Request) {
