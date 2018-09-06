@@ -7,10 +7,18 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	. "github.com/develaper/movies-restapi/config"
+	. "github.com/develaper/movies-restapi/dao"
+	. "github.com/develaper/movies-restapi/models"
 )
 
 func AllMoviesEndPoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "not implemented yet !")
+	movies, err := dao.FindAll()
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJson(w, http.StatusOK, movies)
 }
 
 func FindMovieEndPoint(w http.ResponseWriter, r *http.Request) {
