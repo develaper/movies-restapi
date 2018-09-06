@@ -2,15 +2,19 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
+
+	"gopkg.in/mgo.v2/bson"
 
 	"github.com/gorilla/mux"
 	. "github.com/develaper/movies-restapi/config"
 	. "github.com/develaper/movies-restapi/dao"
 	. "github.com/develaper/movies-restapi/models"
 )
+
+var config = Config{}
+var dao = MoviesDAO{}
 
 func AllMoviesEndPoint(w http.ResponseWriter, r *http.Request) {
 	movies, err := dao.FindAll()
