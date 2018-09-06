@@ -86,6 +86,14 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
+func init() {
+	config.Read()
+
+	dao.Server = config.Server
+	dao.Database = config.Database
+	dao.Connect()
+}
+
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/movies", AllMoviesEndPoint).Methods("GET")
