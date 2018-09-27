@@ -86,6 +86,10 @@ func respondWithError(w http.ResponseWriter, code int, msg string) {
 func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json")
+	 //Allow CORS here By * or specific origin
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.WriteHeader(code)
 	w.Write(response)
 }
